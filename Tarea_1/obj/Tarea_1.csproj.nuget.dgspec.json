@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Tutoria-POO-C-\\Tarea_1\\Tarea_1.csproj": {}
+    "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Ejercicios_Mentoria_POO\\Tarea_1\\Tarea_1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Tutoria-POO-C-\\Tarea_1\\Tarea_1.csproj": {
+    "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Ejercicios_Mentoria_POO\\Tarea_1\\Tarea_1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Tutoria-POO-C-\\Tarea_1\\Tarea_1.csproj",
+        "projectUniqueName": "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Ejercicios_Mentoria_POO\\Tarea_1\\Tarea_1.csproj",
         "projectName": "Tarea_1",
-        "projectPath": "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Tutoria-POO-C-\\Tarea_1\\Tarea_1.csproj",
+        "projectPath": "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Ejercicios_Mentoria_POO\\Tarea_1\\Tarea_1.csproj",
         "packagesPath": "C:\\Users\\marge\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Tutoria-POO-C-\\Tarea_1\\obj\\",
+        "outputPath": "C:\\Users\\marge\\OneDrive\\Escritorio\\ExtraUniversitrio By Marvin Mejia\\Ejercicios_Mentoria_POO\\Tarea_1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
