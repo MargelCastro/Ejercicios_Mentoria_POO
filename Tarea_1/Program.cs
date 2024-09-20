@@ -2,7 +2,7 @@
   -- registrar    --modificar   
   --eliminar   y  --listar productos de una tienda. 
 Cada producto debe tener código, nombre, precio y cantidad en stock. */
-using System.Runtime;
+using System.Data.Common;
 
 namespace app;
 public class Program
@@ -44,7 +44,7 @@ public class Program
       {
         case 1: //Registrar
           Console.WriteLine("Ingrese el Nombre del Producto:");
-          string nombreProducto = Console.ReadLine();
+          string nombreProducto = Console.ReadLine() ?? string.Empty;// ??string.Empty si viene nulo agregar un vacio
 
           Console.WriteLine("Ingrese el Precio del Producto:");
           if (!double.TryParse(Console.ReadLine(), out double precio))
@@ -61,14 +61,13 @@ public class Program
           }
 
           // Crear un nuevo objeto Producto y asignar los valores
-          Producto nuevoProducto = new Producto
-          {
-            NombreProducto = nombreProducto,
-            Precio = precio,
-            Stock = stock
-          };
+          Producto newProducto = new();
+          newProducto.NombreProducto = nombreProducto;
+          newProducto.Precio = precio;
+          newProducto.Stock = stock;
 
-          if (dAL_Producto.Insertar(nuevoProducto) > 0)
+
+          if (dAL_Producto.Insertar(newProducto) > 0)
           {
             Console.WriteLine("Producto agregado con éxito !!!");
           }
@@ -76,73 +75,90 @@ public class Program
 
 
         case 2: //Actualizar
-        /*if (registros == 0)
-        {
-          Console.WriteLine("No hay registros para actualizar");
-          Console.ReadKey();
-          continue;
-        }
+          int registro = dAL_Producto.Listar().Count();
+          int idUpdate;
+          if (registro == 0)
 
-        Console.WriteLine("Ingrese el índice del gasto que desea actualizar (0-{0}):", registros - 1);
-        if (!int.TryParse(Console.ReadLine(), out int updateRegistro) || updateRegistro < 0 || updateRegistro >= registros)
-        {
-          Console.WriteLine("Índice no es válido");
-          Console.ReadKey();
-          continue;
-        }
+          {
+            Console.WriteLine("No hay registros para actualizar");
+            Console.ReadKey();
+            continue;
+          }
 
-        Console.WriteLine("Ingrese la nueva descripción del gasto:");
-        string? nuevaDescripcion = Console.ReadLine();
-        if (string.IsNullOrEmpty(nuevaDescripcion) || string.IsNullOrWhiteSpace(nuevaDescripcion))
-        {
-          Console.WriteLine("La descripción no puede estar vacía");
-          Console.ReadKey();
-          continue;
-        }
+          Console.WriteLine("Ingrese el Id del producto a Actualizar (1-{0}):", registro);
+          if (!int.TryParse(Console.ReadLine(), out idUpdate) || idUpdate < 0)
+          {
+            Console.WriteLine("Índice no es válido");
+            Console.ReadKey();
+            continue;
+          }
 
-        Console.WriteLine("Ingrese el nuevo monto del gasto");
-        double nuevoMonto = 0;
-        if (!double.TryParse(Console.ReadLine(), out nuevoMonto) || nuevoMonto <= 0)
-        {
-          Console.WriteLine("Ingrese un monto válido y mayor que cero");
-          Console.ReadKey();
-          continue;
-        }
-        descripciones[updateRegistro] = nuevaDescripcion;
-        montos[updateRegistro] = nuevoMonto;
+          Console.WriteLine("Ingrese el Nombre del Producto:");
+          string? nuevoNombre = Console.ReadLine();
+          if (string.IsNullOrEmpty(nuevoNombre) || string.IsNullOrWhiteSpace(nuevoNombre))
+          {
+            Console.WriteLine("El Nombre no puede estar vacío");
+            Console.ReadKey();
+            continue;
+          }
 
-        Console.WriteLine("Gasto actualizado exitosamente");
-        Console.ReadLine();
-        break;*/
+          Console.WriteLine("Ingrese el nuevo Precio");
+          double nuevoPrecio = 0;
+          if (!double.TryParse(Console.ReadLine(), out nuevoPrecio) || nuevoPrecio <= 0)
+          {
+            Console.WriteLine("Ingrese un Precio válido y mayor que cero");
+            Console.ReadKey();
+            continue;
+          }
+
+          Console.WriteLine("Ingrese el nuevo Stock");
+          int nuevoStock = 0;
+          if (!int.TryParse(Console.ReadLine(), out nuevoStock) || nuevoStock <= 0)
+          {
+            Console.WriteLine("Ingrese un Precio válido y mayor que cero");
+            Console.ReadKey();
+            continue;
+          }
+
+          Producto Actualizado = new();
+          Actualizado.IdCodigo = idUpdate;
+          Actualizado.NombreProducto = nuevoNombre;
+          Actualizado.Precio = nuevoPrecio;
+          Actualizado.Stock = nuevoStock;
+
+          if (dAL_Producto.Actualizar(Actualizado))
+          {
+            Console.WriteLine("Producto actualizado exitosamente");
+            Console.ReadLine();
+          }
+          break;
         case 3: //Eliminar
-        /*if (registros == 0)
-        {
-          Console.WriteLine("No hay registros para eliminar");
-          Console.ReadKey();
-          continue;
-        }
-
-        Console.WriteLine("Ingrese el índice del gasto que desea eliminar (0-{0}):", registros - 1);
-        if (!int.TryParse(Console.ReadLine(), out int deleteRegistro) || deleteRegistro < 0 || deleteRegistro >= registros)
-        {
-          Console.WriteLine("Índice no es válido");
-          Console.ReadKey();
-          continue;
-        }
-
-        for (int i = deleteRegistro; i < registros - 1; i++)
-        {
-          descripciones[i] = descripciones[i + 1];
-          montos[i] = montos[i + 1];
-        }
-
-        descripciones[registros - 1] = string.Empty;
-        montos[registros - 1] = 0;
-
-        registros--;
-        Console.WriteLine("Gasto eliminado con exito!!!");
-        Console.ReadKey();
-        break;*/
+          if (dAL_Producto.CantidadRegistros() == 0)
+          {
+            Console.WriteLine("No hay productos para eliminar.");
+          }
+          else
+          {
+            dAL_Producto.Listar(); // Mostrar la lista de productos para que el usuario seleccione
+            Console.WriteLine("Ingrese el ID del producto a eliminar:");
+            if (int.TryParse(Console.ReadLine(), out int id))
+            {
+              // Buscar el producto por ID y eliminarlo
+              if (dAL_Producto.Eliminar(id))
+              {
+                Console.WriteLine("Producto eliminado con éxito.");
+              }
+              else
+              {
+                Console.WriteLine("Producto no encontrado.");
+              }
+            }
+            else
+            {
+              Console.WriteLine("ID inválido.");
+            }
+          }
+          break;
         case 4: //Consultar
           if (dAL_Producto.CantidadRegistros() == 0)
           {

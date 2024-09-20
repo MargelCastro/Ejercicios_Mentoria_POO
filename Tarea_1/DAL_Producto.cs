@@ -22,4 +22,32 @@ public class DAL_Producto
     {
         return Listado;
     }
+
+    public List<Producto> ObtenerTodosLosProductos()
+    {
+        return Listado;
+    }
+    public bool Eliminar(int id)
+    {
+        var productoEliminar = Listado.FirstOrDefault(p => p.IdCodigo == id);
+        if (productoEliminar != null)
+        {
+            Listado.Remove(productoEliminar);
+            return true;
+        }
+        return false;
+    }
+
+    public bool Actualizar(Producto Entidad)
+    {
+        var productoActualizar = Listado.FirstOrDefault(a => a.IdCodigo == Entidad.IdCodigo);
+        if (productoActualizar != null)
+        {
+            productoActualizar.NombreProducto = Entidad.NombreProducto;
+            productoActualizar.Precio = Entidad.Precio;
+            productoActualizar.Stock = Entidad.Stock;
+            return true;
+        }
+        return false;
+    }
 }
