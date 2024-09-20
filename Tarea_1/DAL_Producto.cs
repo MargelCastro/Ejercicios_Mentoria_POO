@@ -23,10 +23,6 @@ public class DAL_Producto
         return Listado;
     }
 
-    public List<Producto> ObtenerTodosLosProductos()
-    {
-        return Listado;
-    }
     public bool Eliminar(int id)
     {
         var productoEliminar = Listado.FirstOrDefault(p => p.IdCodigo == id);
